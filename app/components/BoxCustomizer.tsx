@@ -39,9 +39,9 @@ const themes = [
 
 const boxSizes: BoxOption[] = [
   { id: "mini", name: "Mini Box", price: 7900, items: 3 },
-  { id: "standard", name: "Standard Box", price: 12900, items: 5 },
-  { id: "deluxe", name: "Deluxe Box", price: 18900, items: 8 },
-  { id: "premium", name: "Premium Box", price: 24900, items: 12 },
+  { id: "standard", name: "Standard Box", price: 14900, items: 6 },
+  { id: "deluxe", name: "Deluxe Box", price: 22900, items: 9 },
+  { id: "premium", name: "Premium Box", price: 39900, items: 12 },
 ];
 
 const surpriseLevel = [

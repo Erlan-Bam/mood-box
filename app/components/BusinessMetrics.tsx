@@ -1,8 +1,15 @@
 "use client";
 
 import {
+  miniBoxCosts,
+  miniBoxEconomics,
   standardBoxCosts,
   standardBoxEconomics,
+  deluxeBoxCosts,
+  deluxeBoxEconomics,
+  premiumBoxCosts,
+  premiumBoxEconomics,
+  allBoxEconomics,
   startupCosts,
   totalStartupCost,
   monthlyExpenses,
@@ -10,10 +17,23 @@ import {
   recommendations,
   boxPricing,
   breakEvenAnalysis,
+  CostItem,
+  BoxEconomics,
 } from "../data/businessMetrics";
+import { useState } from "react";
 
 export default function BusinessMetrics() {
   const formatPrice = (price: number) => price.toLocaleString("ru-KZ");
+  const [selectedBox, setSelectedBox] = useState<keyof typeof allBoxEconomics>("standard");
+
+  const boxOptions = [
+    { key: "mini" as const, label: "Mini", emoji: "📦" },
+    { key: "standard" as const, label: "Standard", emoji: "🎁" },
+    { key: "deluxe" as const, label: "Deluxe", emoji: "🎀" },
+    { key: "premium" as const, label: "Premium", emoji: "👑" },
+  ];
+
+  const currentBoxEconomics = allBoxEconomics[selectedBox];
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-12">
@@ -22,29 +42,57 @@ export default function BusinessMetrics() {
           Business Metrics & Economics
         </h1>
         <p className="text-gray-600 dark:text-gray-400">
-          Financial breakdown and profitability analysis
+          Financial breakdown and profitability analysis for Almaty region
         </p>
       </div>
 
-      {/* Unit Economics - Standard Box */}
+      {/* Box Category Selector */}
       <section className="bg-white dark:bg-gray-900 rounded-2xl p-8 shadow-lg border border-gray-200 dark:border-gray-700">
         <h2 className="text-2xl font-bold mb-6 flex items-center gap-2">
           <span className="text-3xl">📊</span>
-          Unit Economics - Standard Box
+          Unit Economics by Category
         </h2>
+
+        {/* Box Selector Tabs */}
+        <div className="flex flex-wrap gap-3 mb-8">
+          {boxOptions.map((box) => (
+            <button
+              key={box.key}
+              onClick={() => setSelectedBox(box.key)}
+              className={`px-6 py-3 rounded-xl font-medium transition-all ${
+                selectedBox === box.key
+                  ? "bg-purple-600 text-white shadow-lg"
+                  : "bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700"
+              }`}
+            >
+              <span className="mr-2">{box.emoji}</span>
+              {box.label}
+            </button>
+          ))}
+        </div>
+
+        {/* Box Info Header */}
+        <div className="mb-6 p-4 bg-purple-50 dark:bg-purple-900/20 rounded-xl border border-purple-200 dark:border-purple-800">
+          <h3 className="text-xl font-bold text-purple-700 dark:text-purple-300">
+            {currentBoxEconomics.boxType}
+          </h3>
+          <p className="text-purple-600 dark:text-purple-400 italic">
+            Concept: {currentBoxEconomics.concept}
+          </p>
+        </div>
 
         <div className="overflow-x-auto mb-6">
           <table className="w-full">
             <thead>
               <tr className="border-b-2 border-gray-200 dark:border-gray-700">
-                <th className="text-left py-3 px-4">Категория</th>
-                <th className="text-left py-3 px-4">Наименование</th>
-                <th className="text-right py-3 px-4">Цена (₸)</th>
-                <th className="text-left py-3 px-4">Источник</th>
+                <th className="text-left py-3 px-4">Category</th>
+                <th className="text-left py-3 px-4">Item</th>
+                <th className="text-right py-3 px-4">Price (₸)</th>
+                <th className="text-left py-3 px-4">Source</th>
               </tr>
             </thead>
             <tbody>
-              {standardBoxCosts.map((cost, index) => (
+              {currentBoxEconomics.cogs.map((cost, index) => (
                 <tr
                   key={index}
                   className="border-b border-gray-100 dark:border-gray-800"
@@ -63,10 +111,10 @@ export default function BusinessMetrics() {
               ))}
               <tr className="bg-purple-50 dark:bg-purple-900/20 font-bold">
                 <td className="py-4 px-4" colSpan={2}>
-                  ИТОГО (COGS)
+                  Total COGS
                 </td>
                 <td className="py-4 px-4 text-right text-lg">
-                  {formatPrice(standardBoxEconomics.totalCogs)} ₸
+                  {formatPrice(currentBoxEconomics.totalCogs)} ₸
                 </td>
                 <td></td>
               </tr>
@@ -77,37 +125,28 @@ export default function BusinessMetrics() {
         <div className="grid md:grid-cols-3 gap-6">
           <div className="bg-green-50 dark:bg-green-900/20 rounded-xl p-6 border border-green-200 dark:border-green-800">
             <div className="text-sm text-green-600 dark:text-green-400 mb-2">
-              Розничная цена
+              Retail Price (RRP)
             </div>
             <div className="text-3xl font-bold text-green-700 dark:text-green-300">
-              {formatPrice(standardBoxEconomics.retailPrice)} ₸
-            </div>
-            <div className="text-xs text-green-600 dark:text-green-400 mt-1">
-              Наценка ~140%
+              {formatPrice(currentBoxEconomics.retailPrice)} ₸
             </div>
           </div>
 
           <div className="bg-blue-50 dark:bg-blue-900/20 rounded-xl p-6 border border-blue-200 dark:border-blue-800">
             <div className="text-sm text-blue-600 dark:text-blue-400 mb-2">
-              Маржа с 1 шт.
+              Gross Margin (Profit per Unit)
             </div>
             <div className="text-3xl font-bold text-blue-700 dark:text-blue-300">
-              {formatPrice(standardBoxEconomics.margin)} ₸
-            </div>
-            <div className="text-xs text-blue-600 dark:text-blue-400 mt-1">
-              Валовая прибыль
+              {formatPrice(currentBoxEconomics.margin)} ₸
             </div>
           </div>
 
           <div className="bg-purple-50 dark:bg-purple-900/20 rounded-xl p-6 border border-purple-200 dark:border-purple-800">
             <div className="text-sm text-purple-600 dark:text-purple-400 mb-2">
-              Рентабельность
+              Margin %
             </div>
             <div className="text-3xl font-bold text-purple-700 dark:text-purple-300">
-              {standardBoxEconomics.profitability}%
-            </div>
-            <div className="text-xs text-purple-600 dark:text-purple-400 mt-1">
-              Маржинальность
+              {currentBoxEconomics.profitability}%
             </div>
           </div>
         </div>
@@ -117,17 +156,20 @@ export default function BusinessMetrics() {
       <section className="bg-white dark:bg-gray-900 rounded-2xl p-8 shadow-lg border border-gray-200 dark:border-gray-700">
         <h2 className="text-2xl font-bold mb-6 flex items-center gap-2">
           <span className="text-3xl">💰</span>
-          Стартовые вложения (CAPEX)
+          Launch Costs (CAPEX)
         </h2>
+        <p className="text-gray-600 dark:text-gray-400 mb-6">
+          Initial investment required to start operations in Almaty
+        </p>
 
         <div className="overflow-x-auto mb-6">
           <table className="w-full">
             <thead>
               <tr className="border-b-2 border-gray-200 dark:border-gray-700">
-                <th className="text-left py-3 px-4">Категория</th>
-                <th className="text-left py-3 px-4">Статья расходов</th>
-                <th className="text-right py-3 px-4">Сумма (₸)</th>
-                <th className="text-left py-3 px-4">Источник</th>
+                <th className="text-left py-3 px-4">Category</th>
+                <th className="text-left py-3 px-4">Description</th>
+                <th className="text-right py-3 px-4">Amount (₸)</th>
+                <th className="text-left py-3 px-4">Source</th>
               </tr>
             </thead>
             <tbody>
@@ -150,7 +192,7 @@ export default function BusinessMetrics() {
               ))}
               <tr className="bg-orange-50 dark:bg-orange-900/20 font-bold">
                 <td className="py-4 px-4" colSpan={2}>
-                  Итого инвестиций
+                  TOTAL Required Capital
                 </td>
                 <td className="py-4 px-4 text-right text-lg">
                   {formatPrice(totalStartupCost)} ₸
@@ -163,13 +205,13 @@ export default function BusinessMetrics() {
 
         <div className="bg-blue-50 dark:bg-blue-900/20 rounded-xl p-6 border border-blue-200 dark:border-blue-800">
           <div className="text-sm text-blue-600 dark:text-blue-400 mb-2">
-            Необходимый стартовый капитал
+            Required Startup Capital
           </div>
           <div className="text-4xl font-bold text-blue-700 dark:text-blue-300">
             {formatPrice(totalStartupCost)} ₸
           </div>
           <div className="text-sm text-blue-600 dark:text-blue-400 mt-2">
-            ≈ ${Math.round(totalStartupCost / 480)} USD (курс: 1$ = 480₸)
+            ≈ ${Math.round(totalStartupCost / 480)} USD (rate: 1$ = 480₸)
           </div>
         </div>
       </section>
@@ -178,17 +220,20 @@ export default function BusinessMetrics() {
       <section className="bg-white dark:bg-gray-900 rounded-2xl p-8 shadow-lg border border-gray-200 dark:border-gray-700">
         <h2 className="text-2xl font-bold mb-6 flex items-center gap-2">
           <span className="text-3xl">📅</span>
-          Ежемесячные расходы (OPEX)
+          Operating Expenses (OPEX)
         </h2>
+        <p className="text-gray-600 dark:text-gray-400 mb-6">
+          Monthly fixed costs (Almaty region)
+        </p>
 
         <div className="overflow-x-auto mb-6">
           <table className="w-full">
             <thead>
               <tr className="border-b-2 border-gray-200 dark:border-gray-700">
-                <th className="text-left py-3 px-4">Статья расходов</th>
-                <th className="text-left py-3 px-4">Описание</th>
-                <th className="text-right py-3 px-4">Сумма (₸/мес)</th>
-                <th className="text-left py-3 px-4">Источник</th>
+                <th className="text-left py-3 px-4">Expense Item</th>
+                <th className="text-left py-3 px-4">Description</th>
+                <th className="text-right py-3 px-4">Amount (₸/month)</th>
+                <th className="text-left py-3 px-4">Source</th>
               </tr>
             </thead>
             <tbody>
@@ -211,7 +256,7 @@ export default function BusinessMetrics() {
               ))}
               <tr className="bg-red-50 dark:bg-red-900/20 font-bold">
                 <td className="py-4 px-4" colSpan={2}>
-                  Месячные расходы
+                  Monthly Burn Rate
                 </td>
                 <td className="py-4 px-4 text-right text-lg">
                   {formatPrice(totalMonthlyExpenses)} ₸
@@ -224,10 +269,10 @@ export default function BusinessMetrics() {
 
         <div className="bg-red-50 dark:bg-red-900/20 rounded-xl p-6 border border-red-200 dark:border-red-800">
           <div className="text-sm text-red-600 dark:text-red-400 mb-2">
-            Постоянные расходы (без учета COGS)
+            Fixed Monthly Expenses (excluding COGS)
           </div>
           <div className="text-4xl font-bold text-red-700 dark:text-red-300">
-            {formatPrice(totalMonthlyExpenses)} ₸/мес
+            {formatPrice(totalMonthlyExpenses)} ₸/month
           </div>
         </div>
       </section>
@@ -236,14 +281,14 @@ export default function BusinessMetrics() {
       <section className="bg-white dark:bg-gray-900 rounded-2xl p-8 shadow-lg border border-gray-200 dark:border-gray-700">
         <h2 className="text-2xl font-bold mb-6 flex items-center gap-2">
           <span className="text-3xl">📈</span>
-          Точка безубыточности
+          Break-even Analysis (Standard Box)
         </h2>
 
         <div className="grid md:grid-cols-2 gap-6">
           <div className="space-y-4">
             <div className="bg-gray-50 dark:bg-gray-800 rounded-xl p-6">
               <div className="text-sm text-gray-600 dark:text-gray-400 mb-2">
-                Постоянные расходы в месяц
+                Monthly Fixed Costs
               </div>
               <div className="text-2xl font-bold">
                 {formatPrice(breakEvenAnalysis.standardBox.monthlyFixedCosts)} ₸
@@ -252,7 +297,7 @@ export default function BusinessMetrics() {
 
             <div className="bg-gray-50 dark:bg-gray-800 rounded-xl p-6">
               <div className="text-sm text-gray-600 dark:text-gray-400 mb-2">
-                Маржа с одного бокса
+                Margin per Box (Standard)
               </div>
               <div className="text-2xl font-bold text-green-600">
                 {formatPrice(
@@ -267,17 +312,17 @@ export default function BusinessMetrics() {
           <div className="flex items-center justify-center">
             <div className="bg-linear-to-br from-purple-50 to-pink-50 dark:from-purple-900/20 dark:to-pink-900/20 rounded-2xl p-8 border-2 border-purple-200 dark:border-purple-800 text-center">
               <div className="text-sm text-purple-600 dark:text-purple-400 mb-3">
-                Минимум продаж для break-even
+                Minimum Sales for Break-even
               </div>
               <div className="text-6xl font-bold text-purple-700 dark:text-purple-300 mb-2">
                 {breakEvenAnalysis.standardBox.breakEvenUnits}
               </div>
               <div className="text-lg text-purple-600 dark:text-purple-400">
-                боксов в месяц
+                boxes per month
               </div>
               <div className="mt-4 text-sm text-gray-600 dark:text-gray-400">
                 ≈ {Math.ceil(breakEvenAnalysis.standardBox.breakEvenUnits / 30)}{" "}
-                боксов в день
+                boxes per day
               </div>
             </div>
           </div>
@@ -288,7 +333,7 @@ export default function BusinessMetrics() {
       <section className="bg-white dark:bg-gray-900 rounded-2xl p-8 shadow-lg border border-gray-200 dark:border-gray-700">
         <h2 className="text-2xl font-bold mb-6 flex items-center gap-2">
           <span className="text-3xl">📦</span>
-          Ценовые категории боксов
+          Box Pricing Tiers
         </h2>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -297,11 +342,14 @@ export default function BusinessMetrics() {
               key={key}
               className="bg-linear-to-br from-purple-50 to-pink-50 dark:from-gray-800 dark:to-gray-700 rounded-xl p-6 border border-purple-200 dark:border-gray-600"
             >
-              <h3 className="text-xl font-bold mb-4">{box.name}</h3>
+              <h3 className="text-xl font-bold mb-2">{box.name}</h3>
+              <p className="text-sm text-purple-600 dark:text-purple-400 italic mb-4">
+                {box.concept}
+              </p>
               <div className="space-y-3">
                 <div className="flex justify-between">
                   <span className="text-sm text-gray-600 dark:text-gray-400">
-                    Цена:
+                    Price:
                   </span>
                   <span className="font-bold text-purple-600 dark:text-purple-400">
                     {formatPrice(box.price)} ₸
@@ -309,13 +357,13 @@ export default function BusinessMetrics() {
                 </div>
                 <div className="flex justify-between">
                   <span className="text-sm text-gray-600 dark:text-gray-400">
-                    Товаров:
+                    Items:
                   </span>
-                  <span className="font-medium">{box.items} шт</span>
+                  <span className="font-medium">{box.itemsRange}</span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-sm text-gray-600 dark:text-gray-400">
-                    Себестоимость:
+                    COGS:
                   </span>
                   <span className="font-medium">
                     {formatPrice(box.estimatedCogs)} ₸
@@ -323,7 +371,7 @@ export default function BusinessMetrics() {
                 </div>
                 <div className="flex justify-between">
                   <span className="text-sm text-gray-600 dark:text-gray-400">
-                    Маржа:
+                    Margin:
                   </span>
                   <span className="font-medium text-green-600 dark:text-green-400">
                     {formatPrice(box.margin)} ₸
@@ -331,34 +379,48 @@ export default function BusinessMetrics() {
                 </div>
                 <div className="flex justify-between pt-3 border-t border-purple-200 dark:border-gray-600">
                   <span className="text-sm text-gray-600 dark:text-gray-400">
-                    Рентабельность:
+                    Profitability:
                   </span>
                   <span className="font-bold text-purple-600 dark:text-purple-400">
                     {box.profitability}%
                   </span>
                 </div>
+                {(box as { freeDelivery?: boolean }).freeDelivery && (
+                  <div className="mt-2 text-xs text-green-600 dark:text-green-400 bg-green-50 dark:bg-green-900/20 rounded-lg p-2 text-center">
+                    ✓ Free Delivery Included
+                  </div>
+                )}
               </div>
             </div>
           ))}
         </div>
       </section>
 
-      {/* Recommendations */}
+      {/* Strategic Recommendations */}
       <section className="bg-white dark:bg-gray-900 rounded-2xl p-8 shadow-lg border border-gray-200 dark:border-gray-700">
         <h2 className="text-2xl font-bold mb-6 flex items-center gap-2">
           <span className="text-3xl">💡</span>
-          Рекомендации к реализации
+          Strategic Recommendations
         </h2>
+
+        {/* Pricing Strategy Alert */}
+        <div className="mb-6 p-4 bg-yellow-50 dark:bg-yellow-900/20 rounded-xl border border-yellow-200 dark:border-yellow-800">
+          <h3 className="font-bold text-lg mb-2 text-yellow-700 dark:text-yellow-300">
+            ⚠️ Pricing Strategy
+          </h3>
+          <p className="text-sm text-yellow-600 dark:text-yellow-400">
+            {recommendations.pricing.note}
+          </p>
+        </div>
 
         <div className="grid md:grid-cols-3 gap-6">
           <div className="bg-blue-50 dark:bg-blue-900/20 rounded-xl p-6 border border-blue-200 dark:border-blue-800">
             <h3 className="font-bold text-lg mb-3 text-blue-700 dark:text-blue-300">
-              🚚 Логистика
+              🚚 Logistics
             </h3>
             <p className="text-sm mb-2">{recommendations.logistics.strategy}</p>
             <p className="text-sm text-gray-600 dark:text-gray-400">
-              Средний чек: {formatPrice(recommendations.logistics.averageCost)}{" "}
-              ₸
+              Average cost: {recommendations.logistics.costRange}
             </p>
             <p className="text-xs text-blue-600 dark:text-blue-400 mt-2">
               {recommendations.logistics.note}
@@ -367,11 +429,11 @@ export default function BusinessMetrics() {
 
           <div className="bg-green-50 dark:bg-green-900/20 rounded-xl p-6 border border-green-200 dark:border-green-800">
             <h3 className="font-bold text-lg mb-3 text-green-700 dark:text-green-300">
-              🏢 Помещение
+              🏢 Warehouse
             </h3>
             <p className="text-sm mb-2">{recommendations.warehouse.type}</p>
             <p className="text-sm text-gray-600 dark:text-gray-400">
-              Размер: {recommendations.warehouse.size}
+              Size: {recommendations.warehouse.size}
             </p>
             <p className="text-xs text-green-600 dark:text-green-400 mt-2">
               {recommendations.warehouse.note}
@@ -380,16 +442,16 @@ export default function BusinessMetrics() {
 
           <div className="bg-purple-50 dark:bg-purple-900/20 rounded-xl p-6 border border-purple-200 dark:border-purple-800">
             <h3 className="font-bold text-lg mb-3 text-purple-700 dark:text-purple-300">
-              🛒 Закупки
+              🛒 Procurement
             </h3>
             <p className="text-sm mb-2">
               {recommendations.procurement.strategy}
             </p>
             <p className="text-sm text-gray-600 dark:text-gray-400">
-              Поставщик: {recommendations.procurement.supplier}
+              Supplier: {recommendations.procurement.supplier}
             </p>
             <p className="text-xs text-purple-600 dark:text-purple-400 mt-2">
-              Скидка: {recommendations.procurement.discount}
+              Discount: {recommendations.procurement.discount}
             </p>
           </div>
         </div>

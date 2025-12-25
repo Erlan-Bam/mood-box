@@ -6,7 +6,9 @@ interface PricingPlan {
   price: string;
   emoji: string;
   items: string;
+  concept: string;
   features: string[];
+  margin: string;
   popular?: boolean;
 }
 
@@ -17,46 +19,68 @@ const pricingPlans: PricingPlan[] = [
     price: "7,900 ₸",
     emoji: "📦",
     items: "3-4 items",
-    features: ["Curated items", "Theme matching", "Gift wrapping"],
+    concept: "Affordable compliment",
+    margin: "61%",
+    features: [
+      "Ceramic Mug",
+      "Chocolate Bar",
+      "Tea bags (25 pcs)",
+      "Gift wrapping",
+    ],
   },
   {
     id: "standard",
     name: "Standard",
-    price: "12,900 ₸",
+    price: "14,900 ₸",
     emoji: "🎁",
     items: "5-7 items",
+    concept: "Cozy essentials",
+    margin: "42%",
     features: [
-      "Curated items",
-      "Theme matching",
-      "Gift wrapping",
-      "Free shipping",
+      "Thermo Cup",
+      "Ground Coffee",
+      "Coffee Syrup",
+      "Ritter Sport Chocolate",
+      "Marshmallows",
+      "Scented Candle",
+      "Premium wrapping",
     ],
     popular: true,
   },
   {
     id: "deluxe",
     name: "Deluxe",
-    price: "18,900 ₸",
+    price: "22,900 ₸",
     emoji: "🎀",
     items: "8-10 items",
+    concept: "Full gift set",
+    margin: "35%",
     features: [
-      "Curated items",
-      "Theme matching",
-      "Gift wrapping",
-      "Free shipping",
+      "Hardcover Notebook",
+      "Gift Pen",
+      "Water Bottle",
+      "Sweets Mix (Ferrero, Kinder)",
+      "Premium Leaf Tea",
+      "Nuts/Dried Fruits",
+      "Designer Card",
     ],
   },
   {
     id: "premium",
     name: "Premium",
-    price: "24,900 ₸",
+    price: "39,900 ₸",
     emoji: "👑",
     items: "12+ items",
+    concept: "VIP / Executive",
+    margin: "34%",
     features: [
-      "Curated items",
-      "Theme matching",
-      "Gift wrapping",
-      "Free shipping",
+      "Powerbank",
+      "Coffee Beans + Thermos",
+      "Bath Salt + Scrub + Candle",
+      "Premium Sweets Set",
+      "Printed Socks + Card",
+      "Premium wrapping & Branding",
+      "Free Delivery",
     ],
   },
 ];
@@ -102,12 +126,14 @@ export default function Pricing({ onChoosePlan }: PricingProps) {
                 <h3 className="text-2xl font-bold text-white mb-2">
                   {plan.name}
                 </h3>
-                <div className="mb-4">
+                <div className="mb-2">
                   <span className="text-5xl font-bold text-transparent bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text">
                     {plan.price}
                   </span>
                 </div>
-                <p className="text-gray-400 mb-6">{plan.items}</p>
+                <p className="text-gray-400 mb-2">{plan.items}</p>
+                <p className="text-sm text-purple-300 italic mb-4">{plan.concept}</p>
+                <p className="text-xs text-green-400">Margin: {plan.margin}</p>
               </div>
 
               <ul className="space-y-3 mb-8">
