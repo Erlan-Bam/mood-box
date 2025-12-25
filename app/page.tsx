@@ -3,6 +3,7 @@
 import BoxCustomizer from "./components/BoxCustomizer";
 import Navigation from "./components/Navigation";
 import BusinessMetrics from "./components/BusinessMetrics";
+import Pricing from "./components/Pricing";
 import { useState } from "react";
 import AuthModal from "./components/AuthModal";
 import { useAuth } from "./hooks/useAuth";
@@ -311,6 +312,9 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      {/* Pricing Section */}
+      <Pricing onChoosePlan={handleChoosePlan} />
 
       {/* Box Customizer Section */}
       <section
