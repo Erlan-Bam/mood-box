@@ -276,10 +276,7 @@ export default function BusinessMetrics() {
                 боксов в месяц
               </div>
               <div className="mt-4 text-sm text-gray-600 dark:text-gray-400">
-                ≈{" "}
-                {Math.ceil(
-                  breakEvenAnalysis.standardBox.breakEvenUnits / 30
-                )}{" "}
+                ≈ {Math.ceil(breakEvenAnalysis.standardBox.breakEvenUnits / 30)}{" "}
                 боксов в день
               </div>
             </div>
@@ -360,7 +357,8 @@ export default function BusinessMetrics() {
             </h3>
             <p className="text-sm mb-2">{recommendations.logistics.strategy}</p>
             <p className="text-sm text-gray-600 dark:text-gray-400">
-              Средний чек: {formatPrice(recommendations.logistics.averageCost)} ₸
+              Средний чек: {formatPrice(recommendations.logistics.averageCost)}{" "}
+              ₸
             </p>
             <p className="text-xs text-blue-600 dark:text-blue-400 mt-2">
               {recommendations.logistics.note}

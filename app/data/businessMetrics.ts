@@ -26,38 +26,38 @@ export const standardBoxCosts: CostItem[] = [
     name: "Коробка самосборная 25x25x10 см",
     category: "Упаковка",
     price: 430,
-    source: "Korobka.kz"
+    source: "Korobka.kz",
   },
   {
     name: "Шоколад Ritter Sport (100г)",
     category: "Наполнение",
     price: 950,
-    source: "Magnum.kz"
+    source: "Magnum.kz",
   },
   {
     name: "Термокружка (металлик/пластик)",
     category: "Наполнение",
     price: 2450,
-    source: "Kaspi Shop"
+    source: "Kaspi Shop",
   },
   {
     name: "Чай листовой (Richard/Tess, 90г)",
     category: "Наполнение",
     price: 1090,
-    source: "Magnum.kz"
+    source: "Magnum.kz",
   },
   {
     name: "Наполнитель бумажный (50г)",
     category: "Декор",
     price: 150,
-    source: "Korobka.kz"
+    source: "Korobka.kz",
   },
   {
     name: "Наклейка с лого + Открытка",
     category: "Полиграфия",
     price: 200,
-    source: "Типография"
-  }
+    source: "Типография",
+  },
 ];
 
 export const standardBoxEconomics: BoxEconomics = {
@@ -66,7 +66,7 @@ export const standardBoxEconomics: BoxEconomics = {
   totalCogs: 5270, // Sum of all costs
   retailPrice: 12900,
   margin: 7630, // retailPrice - totalCogs
-  profitability: 59 // (margin / retailPrice) * 100
+  profitability: 59, // (margin / retailPrice) * 100
 };
 
 // 7.2. Startup Investment (CAPEX)
@@ -82,32 +82,32 @@ export const startupCosts: StartupCost[] = [
     category: "Оборудование",
     item: "Термопринтер Xprinter XP-365B",
     amount: 23880,
-    source: "Kaspi Shop"
+    source: "Kaspi Shop",
   },
   {
     category: "Товарный запас",
     item: "Закуп наполнения (тест-партия на 30 наборов)",
     amount: 158100,
-    source: "5270 ₸ × 30 шт"
+    source: "5270 ₸ × 30 шт",
   },
   {
     category: "Упаковка (Опт)",
     item: "Закуп коробок (мин. партия 50 шт)",
     amount: 21500,
-    source: "Korobka.kz"
+    source: "Korobka.kz",
   },
   {
     category: "Расходники",
     item: "Термоэтикетки (3 рулона) + Ленты",
     amount: 5000,
-    source: "Kaspi Shop"
+    source: "Kaspi Shop",
   },
   {
     category: "Регистрация",
     item: "Открытие счетов, ЭЦП",
     amount: 0,
-    source: "Бесплатно (Kaspi Pay / Halyk)"
-  }
+    source: "Бесплатно (Kaspi Pay / Halyk)",
+  },
 ];
 
 export const totalStartupCost = 208480;
@@ -125,26 +125,26 @@ export const monthlyExpenses: MonthlyExpense[] = [
     item: "Аренда",
     description: "Склад/Кладовая (15-20 м²)",
     amount: 35000,
-    source: "Krisha.kz"
+    source: "Krisha.kz",
   },
   {
     item: "Налоги",
     description: "ИП (ОПВ + СО + ВОСМС от мин. базы)",
     amount: 17425,
-    source: "Uchet.kz"
+    source: "Uchet.kz",
   },
   {
     item: "Маркетинг",
     description: "Таргет (Instagram Ads)",
     amount: 100000,
-    source: "Meta Business"
+    source: "Meta Business",
   },
   {
     item: "Связь",
     description: "Тариф для бизнеса (интернет/звонки)",
     amount: 4990,
-    source: "Beeline Business"
-  }
+    source: "Beeline Business",
+  },
 ];
 
 export const totalMonthlyExpenses = 157415;
@@ -154,18 +154,18 @@ export const recommendations = {
   logistics: {
     strategy: "Использовать Яндекс Доставка",
     averageCost: 1100,
-    note: "Не нанимать штат курьеров"
+    note: "Не нанимать штат курьеров",
   },
   warehouse: {
     type: "Кладовая в ЖК (цокольные этажи)",
     size: "15-20 м²",
-    note: "Дешевле офисов в БЦ в 3 раза"
+    note: "Дешевле офисов в БЦ в 3 раза",
   },
   procurement: {
     strategy: "Договор с оптовиками при объеме >50 боксов",
     supplier: "Прима Дистрибьюшн",
-    discount: "15-20% на шоколад/чай"
-  }
+    discount: "15-20% на шоколад/чай",
+  },
 };
 
 // Box pricing tiers based on economics
@@ -176,7 +176,7 @@ export const boxPricing = {
     items: 3,
     estimatedCogs: 3200,
     margin: 4700,
-    profitability: 59
+    profitability: 59,
   },
   standard: {
     name: "Standard Box",
@@ -184,7 +184,7 @@ export const boxPricing = {
     items: 5,
     estimatedCogs: 5270,
     margin: 7630,
-    profitability: 59
+    profitability: 59,
   },
   deluxe: {
     name: "Deluxe Box",
@@ -192,7 +192,7 @@ export const boxPricing = {
     items: 8,
     estimatedCogs: 7900,
     margin: 11000,
-    profitability: 58
+    profitability: 58,
   },
   premium: {
     name: "Premium Box",
@@ -200,16 +200,23 @@ export const boxPricing = {
     items: 12,
     estimatedCogs: 10500,
     margin: 14400,
-    profitability: 58
-  }
+    profitability: 58,
+  },
 };
 
 // Helper functions
-export const calculateBreakEvenUnits = (fixedCosts: number, pricePerUnit: number, cogsPerUnit: number): number => {
+export const calculateBreakEvenUnits = (
+  fixedCosts: number,
+  pricePerUnit: number,
+  cogsPerUnit: number
+): number => {
   return Math.ceil(fixedCosts / (pricePerUnit - cogsPerUnit));
 };
 
-export const calculateMonthlyRevenue = (units: number, pricePerUnit: number): number => {
+export const calculateMonthlyRevenue = (
+  units: number,
+  pricePerUnit: number
+): number => {
   return units * pricePerUnit;
 };
 
@@ -234,8 +241,8 @@ export const breakEvenAnalysis = {
       totalMonthlyExpenses,
       standardBoxEconomics.retailPrice,
       standardBoxEconomics.totalCogs
-    )
-  }
+    ),
+  },
 };
 
 export default {
@@ -247,5 +254,5 @@ export default {
   totalMonthlyExpenses,
   recommendations,
   boxPricing,
-  breakEvenAnalysis
+  breakEvenAnalysis,
 };
