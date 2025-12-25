@@ -24,7 +24,8 @@ import { useState } from "react";
 
 export default function BusinessMetrics() {
   const formatPrice = (price: number) => price.toLocaleString("ru-KZ");
-  const [selectedBox, setSelectedBox] = useState<keyof typeof allBoxEconomics>("standard");
+  const [selectedBox, setSelectedBox] =
+    useState<keyof typeof allBoxEconomics>("standard");
 
   const boxOptions = [
     { key: "mini" as const, label: "Mini", emoji: "📦" },

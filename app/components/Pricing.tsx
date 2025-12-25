@@ -132,7 +132,9 @@ export default function Pricing({ onChoosePlan }: PricingProps) {
                   </span>
                 </div>
                 <p className="text-gray-400 mb-2">{plan.items}</p>
-                <p className="text-sm text-purple-300 italic mb-4">{plan.concept}</p>
+                <p className="text-sm text-purple-300 italic mb-4">
+                  {plan.concept}
+                </p>
                 <p className="text-xs text-green-400">Margin: {plan.margin}</p>
               </div>
 
