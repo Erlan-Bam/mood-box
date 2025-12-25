@@ -14,7 +14,7 @@ const pricingPlans: PricingPlan[] = [
   {
     id: "mini",
     name: "Mini",
-    price: "$19.99",
+    price: "7,900 ₸",
     emoji: "📦",
     items: "3-4 items",
     features: ["Curated items", "Theme matching", "Gift wrapping"],
@@ -22,7 +22,7 @@ const pricingPlans: PricingPlan[] = [
   {
     id: "standard",
     name: "Standard",
-    price: "$39.99",
+    price: "12,900 ₸",
     emoji: "🎁",
     items: "5-7 items",
     features: [
@@ -36,7 +36,7 @@ const pricingPlans: PricingPlan[] = [
   {
     id: "deluxe",
     name: "Deluxe",
-    price: "$69.99",
+    price: "18,900 ₸",
     emoji: "🎀",
     items: "8-10 items",
     features: [
@@ -49,7 +49,7 @@ const pricingPlans: PricingPlan[] = [
   {
     id: "premium",
     name: "Premium",
-    price: "$99.99",
+    price: "24,900 ₸",
     emoji: "👑",
     items: "12+ items",
     features: [
