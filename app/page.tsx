@@ -1,56 +1,45 @@
+"use client";
+
 import BoxCustomizer from "./components/BoxCustomizer";
+import Navigation from "./components/Navigation";
+import { useState } from "react";
+import AuthModal from "./components/AuthModal";
+import { useAuth } from "./hooks/useAuth";
 
 export default function Home() {
+  const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
+  const { login, isAuthenticated } = useAuth();
+  const [preselectedTheme, setPreselectedTheme] = useState<string | null>(null);
+  const [preselectedSize, setPreselectedSize] = useState<string | null>(null);
+
+  const handleGetStarted = () => {
+    if (!isAuthenticated) {
+      setIsAuthModalOpen(true);
+    } else {
+      // Scroll to customize section
+      document.getElementById("customize")?.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
+  const handleExploreTheme = (themeId: string) => {
+    setPreselectedTheme(themeId);
+    document.getElementById("customize")?.scrollIntoView({ behavior: "smooth" });
+  };
+
+  const handleChoosePlan = (sizeId: string) => {
+    setPreselectedSize(sizeId);
+    document.getElementById("customize")?.scrollIntoView({ behavior: "smooth" });
+  };
+
   return (
     <div className="min-h-screen bg-white dark:bg-gray-950">
-      {/* Navigation */}
-      <nav className="fixed top-0 w-full bg-white/80 dark:bg-gray-950/80 backdrop-blur-md z-50 border-b border-gray-200 dark:border-gray-800">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
-            <div className="flex items-center gap-2">
-              <span className="text-3xl">📦</span>
-              <span className="text-2xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
-                Mood Box
-              </span>
-            </div>
-            <div className="hidden md:flex items-center gap-8">
-              <a
-                href="#how-it-works"
-                className="hover:text-purple-600 transition-colors"
-              >
-                How It Works
-              </a>
-              <a
-                href="#themes"
-                className="hover:text-purple-600 transition-colors"
-              >
-                Themes
-              </a>
-              <a
-                href="#customize"
-                className="hover:text-purple-600 transition-colors"
-              >
-                Customize
-              </a>
-              <a
-                href="#pricing"
-                className="hover:text-purple-600 transition-colors"
-              >
-                Pricing
-              </a>
-            </div>
-            <button className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white px-6 py-2 rounded-full font-semibold transition-all transform hover:scale-105">
-              Get Started
-            </button>
-          </div>
-        </div>
-      </nav>
+      <Navigation />
 
       {/* Hero Section */}
-      <section className="pt-32 pb-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-purple-50 via-pink-50 to-blue-50 dark:from-gray-900 dark:via-purple-900/20 dark:to-pink-900/20">
+      <section className="pt-32 pb-20 px-4 sm:px-6 lg:px-8 bg-linear-to-br from-purple-50 via-pink-50 to-blue-50 dark:from-gray-900 dark:via-purple-900/20 dark:to-pink-900/20">
         <div className="max-w-7xl mx-auto">
           <div className="text-center max-w-4xl mx-auto">
-            <h1 className="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-purple-600 via-pink-600 to-blue-600 bg-clip-text text-transparent leading-tight">
+            <h1 className="text-5xl md:text-7xl font-bold mb-6 bg-linear-to-r from-purple-600 via-pink-600 to-blue-600 bg-clip-text text-transparent leading-tight">
               Unwrap Joy with Every Themed Box
             </h1>
             <p className="text-xl md:text-2xl text-gray-700 dark:text-gray-300 mb-8 leading-relaxed">
@@ -59,12 +48,12 @@ export default function Home() {
               treasures that match your mood.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <a
-                href="#customize"
-                className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white px-8 py-4 rounded-full font-bold text-lg transition-all transform hover:scale-105 shadow-xl"
+              <button
+                onClick={handleGetStarted}
+                className="bg-linear-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white px-8 py-4 rounded-full font-bold text-lg transition-all transform hover:scale-105 shadow-xl"
               >
-                Create Your Box
-              </a>
+                {isAuthenticated ? "Create Your Box" : "Get Started"}
+              </button>
               <a
                 href="#how-it-works"
                 className="bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 text-gray-900 dark:text-white px-8 py-4 rounded-full font-bold text-lg transition-all border-2 border-gray-200 dark:border-gray-700"
@@ -100,7 +89,7 @@ export default function Home() {
             ].map((box, idx) => (
               <div
                 key={idx}
-                className={`bg-gradient-to-br ${box.color} rounded-2xl p-6 text-center text-white shadow-lg transform hover:scale-105 transition-all cursor-pointer`}
+                className={`bg-linear-to-br ${box.color} rounded-2xl p-6 text-center text-white shadow-lg transform hover:scale-105 transition-all cursor-pointer`}
               >
                 <div className="text-5xl mb-2">{box.emoji}</div>
                 <div className="font-semibold">{box.name}</div>
@@ -155,7 +144,7 @@ export default function Home() {
               },
             ].map((item, idx) => (
               <div key={idx} className="text-center group">
-                <div className="bg-gradient-to-br from-purple-100 to-pink-100 dark:from-purple-900/30 dark:to-pink-900/30 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4 text-4xl group-hover:scale-110 transition-transform">
+                <div className="bg-linear-to-br from-purple-100 to-pink-100 dark:from-purple-900/30 dark:to-pink-900/30 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4 text-4xl group-hover:scale-110 transition-transform">
                   {item.icon}
                 </div>
                 <div className="text-sm font-bold text-purple-600 dark:text-purple-400 mb-2">
@@ -259,7 +248,18 @@ export default function Home() {
                 ],
                 popular: true,
               },
-            ].map((box, idx) => (
+            ].map((box, idx) => {
+              const themeIdMap: {[key: string]: string} = {
+                "Halloween": "halloween",
+                "Valentine's Day": "valentine",
+                "Christmas": "christmas",
+                "Birthday Bash": "birthday",
+                "Summer Vibes": "summer",
+                "Mystery Box": "mystery"
+              };
+              const themeId = themeIdMap[box.theme];
+              
+              return (
               <div key={idx} className="relative group">
                 {box.popular && (
                   <div className="absolute -top-3 -right-3 bg-yellow-400 text-gray-900 px-3 py-1 rounded-full text-sm font-bold z-10 shadow-lg">
@@ -268,7 +268,7 @@ export default function Home() {
                 )}
                 <div className="bg-white dark:bg-gray-800 rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all group-hover:-translate-y-2">
                   <div
-                    className={`bg-gradient-to-br ${box.gradient} p-8 text-center text-white`}
+                    className={`bg-linear-to-br ${box.gradient} p-8 text-center text-white`}
                   >
                     <div className="text-6xl mb-3">{box.emoji}</div>
                     <h3 className="text-2xl font-bold">{box.theme}</h3>
@@ -290,13 +290,16 @@ export default function Home() {
                         </li>
                       ))}
                     </ul>
-                    <button className="w-full mt-6 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-semibold py-3 rounded-xl transition-all">
+                    <button 
+                      onClick={() => handleExploreTheme(themeId)}
+                      className="w-full mt-6 bg-linear-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-semibold py-3 rounded-xl transition-all"
+                    >
                       Explore Theme
                     </button>
                   </div>
                 </div>
               </div>
-            ))}
+            )})}
           </div>
         </div>
       </section>
@@ -314,14 +317,21 @@ export default function Home() {
             Customize every aspect of your box to create a unique unboxing
             experience
           </p>
-          <BoxCustomizer />
+          <BoxCustomizer 
+            preselectedTheme={preselectedTheme}
+            preselectedSize={preselectedSize}
+            onSelectionUsed={() => {
+              setPreselectedTheme(null);
+              setPreselectedSize(null);
+            }}
+          />
         </div>
       </section>
 
       {/* Pricing Section */}
       <section
         id="pricing"
-        className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-purple-50 via-pink-50 to-blue-50 dark:from-gray-900 dark:via-purple-900/20 dark:to-pink-900/20"
+        className="py-20 px-4 sm:px-6 lg:px-8 bg-linear-to-br from-purple-50 via-pink-50 to-blue-50 dark:from-gray-900 dark:via-purple-900/20 dark:to-pink-900/20"
       >
         <div className="max-w-7xl mx-auto">
           <h2 className="text-4xl md:text-5xl font-bold text-center mb-4">
@@ -362,7 +372,16 @@ export default function Home() {
                 icon: "👑",
                 best: false,
               },
-            ].map((tier, idx) => (
+            ].map((tier, idx) => {
+              const sizeIdMap: {[key: string]: string} = {
+                "Mini": "mini",
+                "Standard": "standard",
+                "Deluxe": "deluxe",
+                "Premium": "premium"
+              };
+              const sizeId = sizeIdMap[tier.name];
+              
+              return (
               <div
                 key={idx}
                 className={`relative bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg ${
@@ -390,9 +409,10 @@ export default function Home() {
                     {tier.price !== "19.99" && <li>✓ Free shipping</li>}
                   </ul>
                   <button
+                    onClick={() => handleChoosePlan(sizeId)}
                     className={`w-full py-3 rounded-xl font-semibold transition-all ${
                       tier.best
-                        ? "bg-gradient-to-r from-purple-600 to-pink-600 text-white hover:from-purple-700 hover:to-pink-700"
+                        ? "bg-linear-to-r from-purple-600 to-pink-600 text-white hover:from-purple-700 hover:to-pink-700"
                         : "bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600"
                     }`}
                   >
@@ -400,7 +420,7 @@ export default function Home() {
                   </button>
                 </div>
               </div>
-            ))}
+            )})}
           </div>
         </div>
       </section>
@@ -441,7 +461,7 @@ export default function Home() {
             ].map((model, idx) => (
               <div
                 key={idx}
-                className="bg-gradient-to-br from-purple-50 to-pink-50 dark:from-purple-900/20 dark:to-pink-900/20 rounded-2xl p-8 border border-purple-100 dark:border-purple-800"
+                className="bg-linear-to-br from-purple-50 to-pink-50 dark:from-purple-900/20 dark:to-pink-900/20 rounded-2xl p-8 border border-purple-100 dark:border-purple-800"
               >
                 <div className="text-5xl mb-4">{model.icon}</div>
                 <h3 className="text-2xl font-bold mb-3">{model.title}</h3>
@@ -458,7 +478,7 @@ export default function Home() {
             ))}
           </div>
 
-          <div className="mt-16 bg-gradient-to-r from-purple-600 to-pink-600 rounded-2xl p-8 md:p-12 text-white text-center">
+          <div className="mt-16 bg-linear-to-r from-purple-600 to-pink-600 rounded-2xl p-8 md:p-12 text-white text-center">
             <h3 className="text-3xl font-bold mb-4">Key Growth Strategies</h3>
             <div className="grid md:grid-cols-4 gap-6 mt-8">
               {[
@@ -528,7 +548,7 @@ export default function Home() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-r from-purple-600 via-pink-600 to-blue-600">
+      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-linear-to-r from-purple-600 via-pink-600 to-blue-600">
         <div className="max-w-4xl mx-auto text-center text-white">
           <h2 className="text-4xl md:text-5xl font-bold mb-6">
             Ready to Start Your Journey?
@@ -537,12 +557,12 @@ export default function Home() {
             Join thousands of happy customers who discover joy in every box
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <a
-              href="#customize"
+            <button
+              onClick={handleGetStarted}
               className="bg-white text-purple-600 hover:bg-gray-100 px-8 py-4 rounded-full font-bold text-lg transition-all transform hover:scale-105 shadow-xl"
             >
-              Create Your First Box
-            </a>
+              {isAuthenticated ? "Create Your First Box" : "Get Started Now"}
+            </button>
             <a
               href="#pricing"
               className="bg-transparent border-2 border-white hover:bg-white/10 text-white px-8 py-4 rounded-full font-bold text-lg transition-all"
@@ -663,6 +683,12 @@ export default function Home() {
           </div>
         </div>
       </footer>
+
+      <AuthModal
+        isOpen={isAuthModalOpen}
+        onClose={() => setIsAuthModalOpen(false)}
+        onAuthSuccess={login}
+      />
     </div>
   );
 }

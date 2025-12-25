@@ -1,12 +1,19 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useAuth } from "../hooks/useAuth";
 
 interface BoxOption {
   id: string;
   name: string;
   price: number;
   items: number;
+}
+
+interface BoxCustomizerProps {
+  preselectedTheme?: string | null;
+  preselectedSize?: string | null;
+  onSelectionUsed?: () => void;
 }
 
 const themes = [
@@ -43,13 +50,51 @@ const surpriseLevel = [
   { id: "full", name: "Full Mystery - All surprises!", icon: "🎁" },
 ];
 
-export default function BoxCustomizer() {
+export default function BoxCustomizer({ preselectedTheme, preselectedSize, onSelectionUsed }: BoxCustomizerProps) {
   const [selectedTheme, setSelectedTheme] = useState(themes[0].id);
   const [selectedSize, setSelectedSize] = useState(boxSizes[1].id);
   const [selectedSurprise, setSelectedSurprise] = useState(surpriseLevel[1].id);
+  const [showSuccess, setShowSuccess] = useState(false);
+  const { isAuthenticated } = useAuth();
+
+  // Apply preselected values when they change
+  useEffect(() => {
+    if (preselectedTheme && themes.find(t => t.id === preselectedTheme)) {
+      setSelectedTheme(preselectedTheme);
+      onSelectionUsed?.();
+    }
+  }, [preselectedTheme, onSelectionUsed]);
+
+  useEffect(() => {
+    if (preselectedSize && boxSizes.find(b => b.id === preselectedSize)) {
+      setSelectedSize(preselectedSize);
+      onSelectionUsed?.();
+    }
+  }, [preselectedSize, onSelectionUsed]);
 
   const currentBox = boxSizes.find((box) => box.id === selectedSize)!;
   const currentTheme = themes.find((theme) => theme.id === selectedTheme)!;
+
+  const handleAddToCart = () => {
+    if (!isAuthenticated) {
+      alert("Please sign in to add items to your cart");
+      return;
+    }
+    
+    // Save to localStorage cart
+    const cart = JSON.parse(localStorage.getItem("moodbox_cart") || "[]");
+    cart.push({
+      theme: currentTheme,
+      box: currentBox,
+      surpriseLevel: selectedSurprise,
+      timestamp: new Date().toISOString(),
+    });
+    localStorage.setItem("moodbox_cart", JSON.stringify(cart));
+    
+    // Show success message
+    setShowSuccess(true);
+    setTimeout(() => setShowSuccess(false), 3000);
+  };
 
   return (
     <div className="w-full max-w-6xl mx-auto">
@@ -137,12 +182,12 @@ export default function BoxCustomizer() {
 
         {/* Right Side - Preview */}
         <div className="lg:sticky lg:top-8 h-fit">
-          <div className="bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800 rounded-2xl p-8 border border-gray-200 dark:border-gray-700">
+          <div className="bg-linear-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800 rounded-2xl p-8 border border-gray-200 dark:border-gray-700">
             <h3 className="text-2xl font-bold mb-6">Your Custom Box</h3>
 
             {/* Box Preview */}
             <div
-              className={`bg-gradient-to-br ${currentTheme.color} rounded-xl p-8 mb-6 text-white shadow-xl`}
+              className={`bg-linear-to-br ${currentTheme.color} rounded-xl p-8 mb-6 text-white shadow-xl`}
             >
               <div className="text-center">
                 <div className="text-6xl mb-4">📦</div>
@@ -183,12 +228,21 @@ export default function BoxCustomizer() {
               </div>
             </div>
 
-            <button className="w-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-bold py-4 px-6 rounded-xl transition-all transform hover:scale-105 shadow-lg">
-              Add to Cart
+            <button 
+              onClick={handleAddToCart}
+              className="w-full bg-linear-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-bold py-4 px-6 rounded-xl transition-all transform hover:scale-105 shadow-lg"
+            >
+              {isAuthenticated ? "Add to Cart" : "Sign In to Order"}
             </button>
 
+            {showSuccess && (
+              <div className="bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 text-green-600 dark:text-green-400 px-4 py-3 rounded-lg text-sm text-center mt-4">
+                ✓ Added to cart successfully!
+              </div>
+            )}
+
             <p className="text-center text-sm text-gray-500 dark:text-gray-400 mt-4">
-              Free shipping on orders over $50
+              {isAuthenticated ? "Free shipping on orders over $50" : "Sign in to start ordering"}
             </p>
           </div>
         </div>
