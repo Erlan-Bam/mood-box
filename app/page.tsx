@@ -400,7 +400,7 @@ export default function Home() {
               return (
                 <div
                   key={idx}
-                  className={`relative bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg ${
+                  className={`relative bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg flex flex-col ${
                     tier.best ? "ring-4 ring-purple-500" : ""
                   }`}
                 >
@@ -409,7 +409,7 @@ export default function Home() {
                       Most Popular
                     </div>
                   )}
-                  <div className="text-center">
+                  <div className="text-center flex flex-col flex-grow">
                     <div className="text-5xl mb-3">{tier.icon}</div>
                     <h3 className="text-2xl font-bold mb-2">{tier.name}</h3>
                     <div className="text-4xl font-bold text-purple-600 dark:text-purple-400 mb-1">
@@ -418,7 +418,7 @@ export default function Home() {
                     <div className="text-gray-600 dark:text-gray-400 mb-4">
                       {tier.items} items
                     </div>
-                    <ul className="text-sm text-gray-600 dark:text-gray-400 space-y-2 mb-6">
+                    <ul className="text-sm text-gray-600 dark:text-gray-400 space-y-2 mb-6 flex-grow">
                       <li>✓ Curated items</li>
                       <li>✓ Theme matching</li>
                       <li>✓ Gift wrapping</li>
