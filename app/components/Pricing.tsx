@@ -107,7 +107,7 @@ export default function Pricing({ onChoosePlan }: PricingProps) {
           {pricingPlans.map((plan) => (
             <div
               key={plan.id}
-              className={`relative rounded-3xl p-8 transition-all duration-300 hover:scale-105 ${
+              className={`relative rounded-3xl p-8 transition-all duration-300 hover:scale-105 flex flex-col ${
                 plan.popular
                   ? "bg-gradient-to-br from-slate-800 to-slate-900 border-2 border-purple-500 shadow-2xl shadow-purple-500/20"
                   : "bg-gradient-to-br from-slate-800/80 to-slate-900/80 border border-slate-700"
@@ -121,7 +121,7 @@ export default function Pricing({ onChoosePlan }: PricingProps) {
                 </div>
               )}
 
-              <div className="text-center">
+              <div className="text-center mb-6">
                 <div className="text-6xl mb-4">{plan.emoji}</div>
                 <h3 className="text-2xl font-bold text-white mb-2">
                   {plan.name}
@@ -132,13 +132,10 @@ export default function Pricing({ onChoosePlan }: PricingProps) {
                   </span>
                 </div>
                 <p className="text-gray-400 mb-2">{plan.items}</p>
-                <p className="text-sm text-purple-300 italic mb-4">
-                  {plan.concept}
-                </p>
-                <p className="text-xs text-green-400">Margin: {plan.margin}</p>
+                <p className="text-sm text-purple-300 italic">{plan.concept}</p>
               </div>
 
-              <ul className="space-y-3 mb-8">
+              <ul className="space-y-3 mb-6 flex-grow">
                 {plan.features.map((feature, index) => (
                   <li
                     key={index}
