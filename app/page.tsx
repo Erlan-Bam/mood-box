@@ -17,18 +17,24 @@ export default function Home() {
       setIsAuthModalOpen(true);
     } else {
       // Scroll to customize section
-      document.getElementById("customize")?.scrollIntoView({ behavior: "smooth" });
+      document
+        .getElementById("customize")
+        ?.scrollIntoView({ behavior: "smooth" });
     }
   };
 
   const handleExploreTheme = (themeId: string) => {
     setPreselectedTheme(themeId);
-    document.getElementById("customize")?.scrollIntoView({ behavior: "smooth" });
+    document
+      .getElementById("customize")
+      ?.scrollIntoView({ behavior: "smooth" });
   };
 
   const handleChoosePlan = (sizeId: string) => {
     setPreselectedSize(sizeId);
-    document.getElementById("customize")?.scrollIntoView({ behavior: "smooth" });
+    document
+      .getElementById("customize")
+      ?.scrollIntoView({ behavior: "smooth" });
   };
 
   return (
@@ -249,57 +255,58 @@ export default function Home() {
                 popular: true,
               },
             ].map((box, idx) => {
-              const themeIdMap: {[key: string]: string} = {
-                "Halloween": "halloween",
+              const themeIdMap: { [key: string]: string } = {
+                Halloween: "halloween",
                 "Valentine's Day": "valentine",
-                "Christmas": "christmas",
+                Christmas: "christmas",
                 "Birthday Bash": "birthday",
                 "Summer Vibes": "summer",
-                "Mystery Box": "mystery"
+                "Mystery Box": "mystery",
               };
               const themeId = themeIdMap[box.theme];
-              
+
               return (
-              <div key={idx} className="relative group">
-                {box.popular && (
-                  <div className="absolute -top-3 -right-3 bg-yellow-400 text-gray-900 px-3 py-1 rounded-full text-sm font-bold z-10 shadow-lg">
-                    ⭐ Popular
-                  </div>
-                )}
-                <div className="bg-white dark:bg-gray-800 rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all group-hover:-translate-y-2">
-                  <div
-                    className={`bg-linear-to-br ${box.gradient} p-8 text-center text-white`}
-                  >
-                    <div className="text-6xl mb-3">{box.emoji}</div>
-                    <h3 className="text-2xl font-bold">{box.theme}</h3>
-                  </div>
-                  <div className="p-6">
-                    <h4 className="font-semibold mb-3 text-gray-900 dark:text-white">
-                      What's Inside:
-                    </h4>
-                    <ul className="space-y-2">
-                      {box.items.map((item, i) => (
-                        <li
-                          key={i}
-                          className="flex items-center gap-2 text-gray-600 dark:text-gray-400"
-                        >
-                          <span className="text-purple-600 dark:text-purple-400">
-                            ✓
-                          </span>
-                          {item}
-                        </li>
-                      ))}
-                    </ul>
-                    <button 
-                      onClick={() => handleExploreTheme(themeId)}
-                      className="w-full mt-6 bg-linear-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-semibold py-3 rounded-xl transition-all"
+                <div key={idx} className="relative group">
+                  {box.popular && (
+                    <div className="absolute -top-3 -right-3 bg-yellow-400 text-gray-900 px-3 py-1 rounded-full text-sm font-bold z-10 shadow-lg">
+                      ⭐ Popular
+                    </div>
+                  )}
+                  <div className="bg-white dark:bg-gray-800 rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all group-hover:-translate-y-2">
+                    <div
+                      className={`bg-linear-to-br ${box.gradient} p-8 text-center text-white`}
                     >
-                      Explore Theme
-                    </button>
+                      <div className="text-6xl mb-3">{box.emoji}</div>
+                      <h3 className="text-2xl font-bold">{box.theme}</h3>
+                    </div>
+                    <div className="p-6">
+                      <h4 className="font-semibold mb-3 text-gray-900 dark:text-white">
+                        What's Inside:
+                      </h4>
+                      <ul className="space-y-2">
+                        {box.items.map((item, i) => (
+                          <li
+                            key={i}
+                            className="flex items-center gap-2 text-gray-600 dark:text-gray-400"
+                          >
+                            <span className="text-purple-600 dark:text-purple-400">
+                              ✓
+                            </span>
+                            {item}
+                          </li>
+                        ))}
+                      </ul>
+                      <button
+                        onClick={() => handleExploreTheme(themeId)}
+                        className="w-full mt-6 bg-linear-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-semibold py-3 rounded-xl transition-all"
+                      >
+                        Explore Theme
+                      </button>
+                    </div>
                   </div>
                 </div>
-              </div>
-            )})}
+              );
+            })}
           </div>
         </div>
       </section>
@@ -317,7 +324,7 @@ export default function Home() {
             Customize every aspect of your box to create a unique unboxing
             experience
           </p>
-          <BoxCustomizer 
+          <BoxCustomizer
             preselectedTheme={preselectedTheme}
             preselectedSize={preselectedSize}
             onSelectionUsed={() => {
@@ -373,54 +380,55 @@ export default function Home() {
                 best: false,
               },
             ].map((tier, idx) => {
-              const sizeIdMap: {[key: string]: string} = {
-                "Mini": "mini",
-                "Standard": "standard",
-                "Deluxe": "deluxe",
-                "Premium": "premium"
+              const sizeIdMap: { [key: string]: string } = {
+                Mini: "mini",
+                Standard: "standard",
+                Deluxe: "deluxe",
+                Premium: "premium",
               };
               const sizeId = sizeIdMap[tier.name];
-              
+
               return (
-              <div
-                key={idx}
-                className={`relative bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg ${
-                  tier.best ? "ring-4 ring-purple-500 scale-105" : ""
-                }`}
-              >
-                {tier.best && (
-                  <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 bg-purple-600 text-white px-4 py-1 rounded-full text-sm font-bold">
-                    Most Popular
+                <div
+                  key={idx}
+                  className={`relative bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg ${
+                    tier.best ? "ring-4 ring-purple-500 scale-105" : ""
+                  }`}
+                >
+                  {tier.best && (
+                    <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 bg-purple-600 text-white px-4 py-1 rounded-full text-sm font-bold">
+                      Most Popular
+                    </div>
+                  )}
+                  <div className="text-center">
+                    <div className="text-5xl mb-3">{tier.icon}</div>
+                    <h3 className="text-2xl font-bold mb-2">{tier.name}</h3>
+                    <div className="text-4xl font-bold text-purple-600 dark:text-purple-400 mb-1">
+                      ${tier.price}
+                    </div>
+                    <div className="text-gray-600 dark:text-gray-400 mb-4">
+                      {tier.items} items
+                    </div>
+                    <ul className="text-sm text-gray-600 dark:text-gray-400 space-y-2 mb-6">
+                      <li>✓ Curated items</li>
+                      <li>✓ Theme matching</li>
+                      <li>✓ Gift wrapping</li>
+                      {tier.price !== "19.99" && <li>✓ Free shipping</li>}
+                    </ul>
+                    <button
+                      onClick={() => handleChoosePlan(sizeId)}
+                      className={`w-full py-3 rounded-xl font-semibold transition-all ${
+                        tier.best
+                          ? "bg-linear-to-r from-purple-600 to-pink-600 text-white hover:from-purple-700 hover:to-pink-700"
+                          : "bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600"
+                      }`}
+                    >
+                      Choose Plan
+                    </button>
                   </div>
-                )}
-                <div className="text-center">
-                  <div className="text-5xl mb-3">{tier.icon}</div>
-                  <h3 className="text-2xl font-bold mb-2">{tier.name}</h3>
-                  <div className="text-4xl font-bold text-purple-600 dark:text-purple-400 mb-1">
-                    ${tier.price}
-                  </div>
-                  <div className="text-gray-600 dark:text-gray-400 mb-4">
-                    {tier.items} items
-                  </div>
-                  <ul className="text-sm text-gray-600 dark:text-gray-400 space-y-2 mb-6">
-                    <li>✓ Curated items</li>
-                    <li>✓ Theme matching</li>
-                    <li>✓ Gift wrapping</li>
-                    {tier.price !== "19.99" && <li>✓ Free shipping</li>}
-                  </ul>
-                  <button
-                    onClick={() => handleChoosePlan(sizeId)}
-                    className={`w-full py-3 rounded-xl font-semibold transition-all ${
-                      tier.best
-                        ? "bg-linear-to-r from-purple-600 to-pink-600 text-white hover:from-purple-700 hover:to-pink-700"
-                        : "bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600"
-                    }`}
-                  >
-                    Choose Plan
-                  </button>
                 </div>
-              </div>
-            )})}
+              );
+            })}
           </div>
         </div>
       </section>

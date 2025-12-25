@@ -9,6 +9,7 @@ Visit [http://localhost:3000](http://localhost:3000) to see the application in a
 ## ✨ Features
 
 ### 🎨 Modern Design
+
 - Beautiful gradient color schemes
 - Smooth animations and transitions
 - Dark mode support
@@ -16,6 +17,7 @@ Visit [http://localhost:3000](http://localhost:3000) to see the application in a
 - Modern glassmorphism effects
 
 ### 🔐 Authentication System
+
 - Sign In/Sign Up functionality
 - Email and password validation
 - Persistent sessions with localStorage
@@ -23,6 +25,7 @@ Visit [http://localhost:3000](http://localhost:3000) to see the application in a
 - User email display in navigation
 
 ### 📦 Box Customization
+
 - 6 themed box options (Halloween, Valentine's, Christmas, Birthday, Summer, Mystery)
 - 4 box sizes (Mini, Standard, Deluxe, Premium)
 - 3 surprise levels (Curated, Semi-Mystery, Full Mystery)
@@ -33,44 +36,52 @@ Visit [http://localhost:3000](http://localhost:3000) to see the application in a
 ### 📄 Landing Page Sections
 
 1. **Hero Section**
+
    - Eye-catching headline
    - Call-to-action buttons
    - Theme preview cards
 
 2. **How It Works**
+
    - 4-step process explanation
    - Icon-based visual guides
    - Clear user journey
 
 3. **Themes Gallery**
+
    - 6 different themed boxes
    - Popular badges for trending themes
    - Detailed item lists per theme
    - Individual theme exploration
 
 4. **Box Customizer**
+
    - Interactive customization tool
    - Live preview with selected options
    - Summary breakdown
    - Price calculation
 
 5. **Pricing Plans**
+
    - 4 pricing tiers
    - Clear feature comparison
    - "Most Popular" highlighting
    - Transparent pricing structure
 
 6. **Business Model**
+
    - Revenue stream breakdown (60% Direct Sales, 30% Subscriptions, 10% Add-ons)
    - Growth strategies visualization
    - Investor-friendly presentation
 
 7. **FAQ Section**
+
    - Common questions and answers
    - Expandable/collapsible design
    - Comprehensive coverage
 
 8. **Call-to-Action**
+
    - Social proof (10K+ customers, 50K+ boxes, 4.9★ rating)
    - Multiple action buttons
    - Statistics showcase
@@ -113,18 +124,21 @@ mood-box/
 ## 🚀 Getting Started
 
 ### Prerequisites
+
 - Node.js 18+ installed
 - npm or yarn package manager
 
 ### Installation
 
 1. Clone the repository
+
 ```bash
 git clone <repository-url>
 cd mood-box
 ```
 
 2. Install dependencies
+
 ```bash
 npm install
 # or
@@ -132,6 +146,7 @@ yarn install
 ```
 
 3. Run the development server
+
 ```bash
 npm run dev
 # or
@@ -166,11 +181,13 @@ The application uses a localStorage-based authentication system for development.
 ### Revenue Streams
 
 1. **Direct Box Sales (60%)**
+
    - One-time themed box purchases
    - Premium margins on curated items
    - Seasonal spikes (Halloween, Christmas, Valentine's)
 
 2. **Subscription Model (30%)**
+
    - Monthly recurring revenue
    - Customer retention focus
    - Predictable cash flow
@@ -190,17 +207,20 @@ The application uses a localStorage-based authentication system for development.
 ## 🎨 Design System
 
 ### Color Palette
+
 - **Primary**: Purple (`#9333ea`)
 - **Secondary**: Pink (`#ec4899`)
 - **Accent**: Blue (`#3b82f6`)
 - **Theme Colors**: Orange, Red, Green, Yellow (for themed boxes)
 
 ### Typography
+
 - **Headings**: Geist Sans (Bold)
 - **Body**: Geist Sans (Regular)
 - **Code**: Geist Mono
 
 ### Components
+
 - Gradient buttons with hover effects
 - Glassmorphism cards
 - Smooth transitions and animations
@@ -225,12 +245,14 @@ All sections are fully responsive with mobile-first design approach.
 ## 📈 Future Enhancements
 
 ### Phase 1 (MVP) ✅
+
 - Landing page design
 - Box customization tool
 - Authentication system
 - Cart functionality
 
 ### Phase 2 (Planned)
+
 - [ ] Checkout and payment integration (Stripe)
 - [ ] User dashboard and order history
 - [ ] Subscription management
@@ -238,6 +260,7 @@ All sections are fully responsive with mobile-first design approach.
 - [ ] Admin panel for box management
 
 ### Phase 3 (Future)
+
 - [ ] Mobile app (React Native)
 - [ ] Loyalty rewards program
 - [ ] Social sharing features
@@ -247,6 +270,7 @@ All sections are fully responsive with mobile-first design approach.
 ## 🤝 Contributing
 
 This is a startup project. For collaboration opportunities:
+
 1. Fork the repository
 2. Create a feature branch
 3. Make your changes
@@ -259,6 +283,7 @@ This project is proprietary software for Mood Box startup.
 ## 📧 Contact
 
 For business inquiries or support:
+
 - Email: hello@moodbox.com (example)
 - Website: www.moodbox.com (example)
 
@@ -266,4 +291,4 @@ For business inquiries or support:
 
 **Built with 💜 by the Mood Box team**
 
-*Making every occasion special, one box at a time* 📦✨
+_Making every occasion special, one box at a time_ 📦✨

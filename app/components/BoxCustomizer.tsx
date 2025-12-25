@@ -50,7 +50,11 @@ const surpriseLevel = [
   { id: "full", name: "Full Mystery - All surprises!", icon: "🎁" },
 ];
 
-export default function BoxCustomizer({ preselectedTheme, preselectedSize, onSelectionUsed }: BoxCustomizerProps) {
+export default function BoxCustomizer({
+  preselectedTheme,
+  preselectedSize,
+  onSelectionUsed,
+}: BoxCustomizerProps) {
   const [selectedTheme, setSelectedTheme] = useState(themes[0].id);
   const [selectedSize, setSelectedSize] = useState(boxSizes[1].id);
   const [selectedSurprise, setSelectedSurprise] = useState(surpriseLevel[1].id);
@@ -59,14 +63,14 @@ export default function BoxCustomizer({ preselectedTheme, preselectedSize, onSel
 
   // Apply preselected values when they change
   useEffect(() => {
-    if (preselectedTheme && themes.find(t => t.id === preselectedTheme)) {
+    if (preselectedTheme && themes.find((t) => t.id === preselectedTheme)) {
       setSelectedTheme(preselectedTheme);
       onSelectionUsed?.();
     }
   }, [preselectedTheme, onSelectionUsed]);
 
   useEffect(() => {
-    if (preselectedSize && boxSizes.find(b => b.id === preselectedSize)) {
+    if (preselectedSize && boxSizes.find((b) => b.id === preselectedSize)) {
       setSelectedSize(preselectedSize);
       onSelectionUsed?.();
     }
@@ -80,7 +84,7 @@ export default function BoxCustomizer({ preselectedTheme, preselectedSize, onSel
       alert("Please sign in to add items to your cart");
       return;
     }
-    
+
     // Save to localStorage cart
     const cart = JSON.parse(localStorage.getItem("moodbox_cart") || "[]");
     cart.push({
@@ -90,7 +94,7 @@ export default function BoxCustomizer({ preselectedTheme, preselectedSize, onSel
       timestamp: new Date().toISOString(),
     });
     localStorage.setItem("moodbox_cart", JSON.stringify(cart));
-    
+
     // Show success message
     setShowSuccess(true);
     setTimeout(() => setShowSuccess(false), 3000);
@@ -228,7 +232,7 @@ export default function BoxCustomizer({ preselectedTheme, preselectedSize, onSel
               </div>
             </div>
 
-            <button 
+            <button
               onClick={handleAddToCart}
               className="w-full bg-linear-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-bold py-4 px-6 rounded-xl transition-all transform hover:scale-105 shadow-lg"
             >
@@ -242,7 +246,9 @@ export default function BoxCustomizer({ preselectedTheme, preselectedSize, onSel
             )}
 
             <p className="text-center text-sm text-gray-500 dark:text-gray-400 mt-4">
-              {isAuthenticated ? "Free shipping on orders over $50" : "Sign in to start ordering"}
+              {isAuthenticated
+                ? "Free shipping on orders over $50"
+                : "Sign in to start ordering"}
             </p>
           </div>
         </div>
