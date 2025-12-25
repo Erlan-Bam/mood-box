@@ -401,7 +401,7 @@ export default function Home() {
                 <div
                   key={idx}
                   className={`relative bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg ${
-                    tier.best ? "ring-4 ring-purple-500 scale-105" : ""
+                    tier.best ? "ring-4 ring-purple-500" : ""
                   }`}
                 >
                   {tier.best && (
