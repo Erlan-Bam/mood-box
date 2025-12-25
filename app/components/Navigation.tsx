@@ -47,6 +47,12 @@ export default function Navigation() {
               >
                 Pricing
               </a>
+              <a
+                href="#metrics"
+                className="hover:text-purple-600 transition-colors"
+              >
+                Business
+              </a>
             </div>
 
             {/* Auth Buttons */}
@@ -135,6 +141,13 @@ export default function Navigation() {
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 Pricing
+              </a>
+              <a
+                href="#metrics"
+                className="block hover:text-purple-600 transition-colors py-2"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                Business
               </a>
             </div>
           )}

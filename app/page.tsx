@@ -2,6 +2,7 @@
 
 import BoxCustomizer from "./components/BoxCustomizer";
 import Navigation from "./components/Navigation";
+import BusinessMetrics from "./components/BusinessMetrics";
 import { useState } from "react";
 import AuthModal from "./components/AuthModal";
 import { useAuth } from "./hooks/useAuth";
@@ -593,6 +594,11 @@ export default function Home() {
             </div>
           </div>
         </div>
+      </section>
+
+      {/* Business Metrics Section */}
+      <section id="metrics" className="py-20 bg-gray-50 dark:bg-gray-900">
+        <BusinessMetrics />
       </section>
 
       {/* Footer */}

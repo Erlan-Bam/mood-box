@@ -38,10 +38,10 @@ const themes = [
 ];
 
 const boxSizes: BoxOption[] = [
-  { id: "mini", name: "Mini Box", price: 19.99, items: 3 },
-  { id: "standard", name: "Standard Box", price: 39.99, items: 5 },
-  { id: "deluxe", name: "Deluxe Box", price: 69.99, items: 8 },
-  { id: "premium", name: "Premium Box", price: 99.99, items: 12 },
+  { id: "mini", name: "Mini Box", price: 7900, items: 3 },
+  { id: "standard", name: "Standard Box", price: 12900, items: 5 },
+  { id: "deluxe", name: "Deluxe Box", price: 18900, items: 8 },
+  { id: "premium", name: "Premium Box", price: 24900, items: 12 },
 ];
 
 const surpriseLevel = [
@@ -152,7 +152,7 @@ export default function BoxCustomizer({
                       </div>
                     </div>
                     <div className="text-xl font-bold text-purple-600 dark:text-purple-400">
-                      ${box.price}
+                      {box.price.toLocaleString()} ₸
                     </div>
                   </div>
                 </button>
@@ -227,7 +227,7 @@ export default function BoxCustomizer({
               <div className="flex justify-between items-center py-4 mt-4">
                 <span className="text-xl font-semibold">Total:</span>
                 <span className="text-3xl font-bold text-purple-600 dark:text-purple-400">
-                  ${currentBox.price}
+                  {currentBox.price.toLocaleString()} ₸
                 </span>
               </div>
             </div>
@@ -247,7 +247,7 @@ export default function BoxCustomizer({
 
             <p className="text-center text-sm text-gray-500 dark:text-gray-400 mt-4">
               {isAuthenticated
-                ? "Free shipping on orders over $50"
+                ? "Free shipping on orders over 20,000 ₸"
                 : "Sign in to start ordering"}
             </p>
           </div>
