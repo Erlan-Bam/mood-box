@@ -351,35 +351,35 @@ export default function Home() {
           </h2>
           <p className="text-xl text-gray-600 dark:text-gray-400 text-center mb-16 max-w-3xl mx-auto">
             Choose the perfect size for your budget. All boxes include free
-            shipping over $50
+            shipping over 20,000 ₸
           </p>
 
           <div className="grid md:grid-cols-4 gap-6 max-w-6xl mx-auto">
             {[
               {
                 name: "Mini",
-                price: "19.99",
+                price: "7,900 ₸",
                 items: "3-4",
                 icon: "📦",
                 best: false,
               },
               {
                 name: "Standard",
-                price: "39.99",
+                price: "12,900 ₸",
                 items: "5-7",
                 icon: "🎁",
                 best: true,
               },
               {
                 name: "Deluxe",
-                price: "69.99",
+                price: "18,900 ₸",
                 items: "8-10",
                 icon: "🎀",
                 best: false,
               },
               {
                 name: "Premium",
-                price: "99.99",
+                price: "24,900 ₸",
                 items: "12+",
                 icon: "👑",
                 best: false,
@@ -409,7 +409,7 @@ export default function Home() {
                     <div className="text-5xl mb-3">{tier.icon}</div>
                     <h3 className="text-2xl font-bold mb-2">{tier.name}</h3>
                     <div className="text-4xl font-bold text-purple-600 dark:text-purple-400 mb-1">
-                      ${tier.price}
+                      {tier.price}
                     </div>
                     <div className="text-gray-600 dark:text-gray-400 mb-4">
                       {tier.items} items
@@ -418,7 +418,7 @@ export default function Home() {
                       <li>✓ Curated items</li>
                       <li>✓ Theme matching</li>
                       <li>✓ Gift wrapping</li>
-                      {tier.price !== "19.99" && <li>✓ Free shipping</li>}
+                      {tier.price !== "7,900 ₸" && <li>✓ Free shipping</li>}
                     </ul>
                     <button
                       onClick={() => handleChoosePlan(sizeId)}
