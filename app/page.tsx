@@ -362,27 +362,31 @@ export default function Home() {
                 items: "3-4",
                 icon: "📦",
                 best: false,
+                freeShipping: false,
               },
               {
                 name: "Standard",
-                price: "12,900 ₸",
+                price: "14,900 ₸",
                 items: "5-7",
                 icon: "🎁",
                 best: true,
+                freeShipping: false,
               },
               {
                 name: "Deluxe",
-                price: "18,900 ₸",
+                price: "22,900 ₸",
                 items: "8-10",
                 icon: "🎀",
                 best: false,
+                freeShipping: false,
               },
               {
                 name: "Premium",
-                price: "24,900 ₸",
+                price: "39,900 ₸",
                 items: "12+",
                 icon: "👑",
                 best: false,
+                freeShipping: true,
               },
             ].map((tier, idx) => {
               const sizeIdMap: { [key: string]: string } = {
@@ -418,7 +422,7 @@ export default function Home() {
                       <li>✓ Curated items</li>
                       <li>✓ Theme matching</li>
                       <li>✓ Gift wrapping</li>
-                      {tier.price !== "7,900 ₸" && <li>✓ Free shipping</li>}
+                      {tier.freeShipping && <li>✓ Free delivery</li>}
                     </ul>
                     <button
                       onClick={() => handleChoosePlan(sizeId)}
