@@ -14,7 +14,8 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "Mood Box - Curated Themed Mystery Boxes",
-  description: "Discover unique themed mystery boxes for every occasion. Customize your experience and get exclusive rewards with Mood Box.",
+  description:
+    "Discover unique themed mystery boxes for every occasion. Customize your experience and get exclusive rewards with Mood Box.",
 };
 
 export default function RootLayout({
